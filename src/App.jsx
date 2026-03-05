@@ -147,15 +147,18 @@ export default function Dashboard() {
       {loading ? <Spinner /> : (
         <>
           {/* KPI strip */}
-          <div style={{
+          <style>{`
+            @media (max-width: 600px) { .kpi-grid { grid-template-columns: repeat(2, 1fr) !important; } }
+          `}</style>
+          <div className="kpi-grid" style={{
             display: "grid", gridTemplateColumns: "repeat(4, 1fr)",
             gap: 1, borderBottom: "1px solid #1c1c1c", background: "#1c1c1c"
           }}>
             {[
-              { label: "Cantieri attivi",    val: cantieriAttivi,                          sub: `${cantieri.length} totali` },
-              { label: "Preventivi aperti",  val: preventiviAperti,                        sub: `${preventivi.filter(p=>p.stato==="Accettato").length} accettati` },
-              { label: "Follower totali",    val: social?.follower ?? "—",                 sub: social ? `+${social.follower_delta} questo mese` : "" },
-              { label: "Rating Google",      val: `${mediaStelle}★`,                       sub: `${recensioni.length} recensioni recenti` },
+              { label: "Cantieri attivi",    val: cantieriAttivi,               sub: `${cantieri.length} totali` },
+              { label: "Preventivi aperti",  val: preventiviAperti,             sub: `${preventivi.filter(p=>p.stato==="Accettato").length} accettati` },
+              { label: "Follower totali",    val: social?.follower ?? "—",      sub: social ? `+${social.follower_delta} questo mese` : "" },
+              { label: "Rating Google",      val: `${mediaStelle}★`,            sub: `${recensioni.length} recensioni recenti` },
             ].map((k, i) => (
               <div key={i} style={{ background: "#0d0d0d", padding: "18px 24px" }}>
                 <div style={{ fontSize: 11, color: "#555", marginBottom: 6, textTransform: "uppercase", letterSpacing: "0.08em" }}>{k.label}</div>
